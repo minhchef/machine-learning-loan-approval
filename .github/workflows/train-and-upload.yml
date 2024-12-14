@@ -18,7 +18,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install scikit-learn pickle pandas
+        pip install scikit-learn pandas
 
     - name: Train the model
       run: |
