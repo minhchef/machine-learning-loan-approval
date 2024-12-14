@@ -1,0 +1,36 @@
+name: Train and Upload Model
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-train:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: |
+        pip install scikit-learn pickle pandas
+
+    - name: Train the model
+      run: |
+        python loan_approval_model.py
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v3
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+
+    - name: Upload model to S3
+      run: |
+        aws s3 cp loan_approval.pkl s3://data-engineering-minhchef/train-model/loan_approval.pkl
