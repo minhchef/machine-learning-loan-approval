@@ -39,11 +39,13 @@ previous_loan_defaults_map = {
     'Yes': 1,
 }
 
+loan_data = loan_data[loan_data['person_age'] <= 100]
 loan_data['person_gender'] = loan_data['person_gender'].map(gender_map)
 loan_data['person_education'] = loan_data['person_education'].map(education_map)
 loan_data['person_home_ownership'] = loan_data['person_home_ownership'].map(home_ownership_map)
 loan_data['loan_intent'] = loan_data['loan_intent'].map(loan_intent_map)
 loan_data['previous_loan_defaults_on_file'] = loan_data['previous_loan_defaults_on_file'].map(previous_loan_defaults_map)
+
 
 # Split features and target
 X = loan_data.drop(columns=['loan_status'])  # Features
