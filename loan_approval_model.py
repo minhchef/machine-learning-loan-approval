@@ -57,19 +57,19 @@ y = loan_data['loan_status']  # Target label
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Train the Random Forest Classifier
-#random_forest_model = RandomForestClassifier(n_estimators=100, random_state=42)
-#random_forest_model.fit(X_train, y_train)
+random_forest_model = RandomForestClassifier(n_estimators=100, random_state=42)
+random_forest_model.fit(X_train, y_train)
 
 # Make predictions
-#y_pred = random_forest_model.predict(X_test)
+y_pred = random_forest_model.predict(X_test)
 
 
 # Train the KNN Classifier
-knn_model = KNeighborsClassifier(n_neighbors=5)  # You can adjust 'n_neighbors' based on your preference
-knn_model.fit(X_train, y_train)
+#knn_model = KNeighborsClassifier(n_neighbors=5)  # You can adjust 'n_neighbors' based on your preference
+#knn_model.fit(X_train, y_train)
 
 # Make predictions
-y_pred = knn_model.predict(X_test)
+#y_pred = knn_model.predict(X_test)
 
 
 
@@ -88,7 +88,7 @@ print(f"Precision: {precision:.2f}")
 
 # Export model to the pickle file
 with open('loan_approval.pkl', 'wb') as model_file:
-    pickle.dump(knn_model, model_file)
-    #pickle.dump(random_forest_model, model_file)
+    #pickle.dump(knn_model, model_file)
+    pickle.dump(random_forest_model, model_file)
 
 print("Model has been saved to 'loan_approval.pkl'.")
